@@ -13,8 +13,11 @@ class HelloWebapp2(webapp2.RequestHandler):
 
 class TestHandler(webapp2.RequestHandler):
     def post(self):
-        q = self.request.get("q")
-        self.response.write(q)
+        # q = self.request.get("q")
+        # self.response.write(q)
+
+        self.response.headers['Content-type'] = 'text/plain'
+        self.response.write(self.request)
 
 app = webapp2.WSGIApplication([
     ('/', HelloWebapp2),
