@@ -17,6 +17,18 @@ form="""
          <input type="submit" />
     </form>
 """
+months = ['January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December']
 
 def valid_month(month):
     if len(month) < 1:
