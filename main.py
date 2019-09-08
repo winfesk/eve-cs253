@@ -5,13 +5,13 @@ form="""
          What is your birthday?
          <br>
          <label> Month
-            <input type="text" name="month">
+            <input type="text" placeholder="december" name="month">
          </label>
          <label> Day
-            <input type="text" name="day">
+            <input type="text" placeholder="19" name="day">
          </label>
          <label> Year
-            <input type="text" name="year">
+            <input type="text" placeholder="1999" name="year">
          </label>
          <br>
          <input type="submit" />
