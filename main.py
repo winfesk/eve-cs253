@@ -13,7 +13,8 @@ form="""
          <label> Year
             <input type="text" name="year">
          </label>
-        <input name="q" /> <input type="submit" />
+         <br>
+         <input type="submit" />
     </form>
 """
 
@@ -21,6 +22,16 @@ form="""
 class HelloWebapp2(webapp2.RequestHandler):
     def get(self):
         self.response.write(form)
+
+    def post(self):
+        user_month = valid_month(self.request.get('month'))
+        user_day = valid_day(self.request.get('day'))
+        user_year = valid_year(self.request.get('year'))
+
+        if not (user_month and user_day and user_year):
+            self.response.out.write(form)
+        else:
+            self.response.write("Thanks! That's a totally valid day!")
 
 app = webapp2.WSGIApplication([
     ('/', HelloWebapp2),
