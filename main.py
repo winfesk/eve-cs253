@@ -81,7 +81,7 @@ class HelloWebapp2(webapp2.RequestHandler):
         day = valid_day(user_day)
         year = valid_year(user_year)
 
-        if not (user_month and user_day and user_year):
+        if not (month and day and year):
             self.write_form("That doesn't look valid to me, friend.",
                             user_month, user_day, user_year)
         else:
