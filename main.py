@@ -71,14 +71,14 @@ def escape_html(s):
 
 
 class HelloWebapp2(webapp2.RequestHandler):
-    def write_form(self, error="", month="", day="", year=""):
-        self.response.write(form % {"error": error,
-                                    "month": escape_html(month),
-                                    "day": escape_html(day),
-                                    "year": escape_html(year)})
-
     def get(self):
-        self.write_form()
+        self.response.write(
+            '<div style="color: magenta">' + \
+            self.request.headers['user-agent'] + \
+            '<hr/>' + \
+            self.request.params['eve'] + \
+            '</div>' + form \
+        )
 
     def post(self):
         user_month = self.request.get('month')
