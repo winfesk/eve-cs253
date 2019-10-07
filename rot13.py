@@ -15,6 +15,13 @@ template = """<!DOCTYPE html>
 </html>
 """
 
+def escape_html(s):
+    for (i, o) in (("&", "&amp;"),
+                    (">", "&gt;"),
+                    ("<", "&lt;"),
+                    ('"', "&quot;")):
+        s = s.replace(i, o)
+    return s
 
 def rot13(str):
     new_str = ""
@@ -33,27 +40,15 @@ def rot13(str):
         new_str = new_str + element
     return new_str
 
-class Main(webapp2.RequestHandler):
+class Rot13(webapp2.RequestHandler):
     def get(self):
         self.response.write(template % { "textarea": "" })
 
     def post(self):
         # writeToFile('database.txt', "13:38: Slava: I'm a pro, too :(")
-        self.response.write(template % { "textarea": rot13(self.request.get("text")) })
-        # newHtml = """<!DOCTYPE html>
-        # <html lang="en">
-        #     <head>
-        #       <meta charset="UTF-8">
-        #       <title>Beautiful title</title>
-        #     </head>
-        #     <body>
-        #
-        #     </body>
-        # </html>
-        # """
-        # self.response.write(newHtml)
+        self.response.write(template % { "textarea": escape_html(rot13(self.request.get("text"))) })
 
-
-app = webapp2.WSGIApplication([
-    ('/', Main)
-], debug=True)
+route = ('/rot13', Rot13)
+# app = webapp2.WSGIApplication([
+#     ('/', Main)
+# ], debug=True)

@@ -1,4 +1,6 @@
 import webapp2
+import rot13
+import signup
 
 form="""
     <form method="post">
@@ -65,7 +67,7 @@ def escape_html(s):
     for (i, o) in (("&", "&amp;"),
                     (">", "&gt;"),
                     ("<", "&lt;"),
-                    ('"', "quot;")):
+                    ('"', "&quot;")):
         s = s.replace(i, o)
     return s
 
@@ -103,3 +105,7 @@ app = webapp2.WSGIApplication([
     ('/', HelloWebapp2),
     ('/thanks', ThanksHandler)
 ], debug=True)
+
+app.router.add(rot13.route)
+app.router.add(signup.route1)
+app.router.add(signup.route2)
