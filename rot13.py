@@ -1,4 +1,5 @@
 import webapp2
+from notifications import sendPush
 
 template = """<!DOCTYPE html>
 <html lang="en">
@@ -43,6 +44,7 @@ def rot13(str):
 class Rot13(webapp2.RequestHandler):
     def get(self):
         self.response.write(template % { "textarea": "" })
+        sendPush("Someone has opened rot13!")
 
     def post(self):
         # writeToFile('database.txt', "13:38: Slava: I'm a pro, too :(")
