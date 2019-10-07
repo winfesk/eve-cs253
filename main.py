@@ -2,6 +2,8 @@ import webapp2
 import rot13
 import signup
 import templates
+from notifications import sendPush
+from readip import readIp
 
 form="""
     <form method="post">
@@ -81,6 +83,7 @@ class HelloWebapp2(webapp2.RequestHandler):
                                     "year": escape_html(year)})
 
     def get(self):
+        sendPush("We got him at birthday page!", "B-day", readIp(self.request))
         self.write_form()
 
     def post(self):
@@ -96,6 +99,7 @@ class HelloWebapp2(webapp2.RequestHandler):
             self.write_form("That doesn't look valid to me, friend.",
                             user_month, user_day, user_year)
         else:
+            sendPush("The man entered: " + str(day) + " " + month + " " + str(year), "B-day", readIp(self.request))
             self.redirect("/thanks")
 
 class ThanksHandler(webapp2.RequestHandler):

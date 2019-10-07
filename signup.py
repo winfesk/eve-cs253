@@ -1,5 +1,7 @@
 import webapp2
 import re
+from notifications import sendPush
+from readip import readIp
 
 template = """
     <!DOCTYPE html>
@@ -100,6 +102,7 @@ def valid_email(email):
 
 class Main(webapp2.RequestHandler):
     def get(self):
+        sendPush("We've got a guest at SignUp page!", "New user", readIp(self.request))
         self.response.write(template % {"username": "",
                                         "email": "",
                                         "username_error": "",
@@ -113,6 +116,7 @@ class Main(webapp2.RequestHandler):
         repeated_pass = self.request.get('verify')
         email = self.request.get('email')
         if valid_username(username) and valid_password(password) and valid_repeat_pass(password, repeated_pass) and valid_email(email):
+            sendPush(username + " entered some valid data.", "SignUp", readIp(self.request))
             self.redirect("/signup/welcome?username=" + username)
         else:
             usernameError = "" if valid_username(username) else "<span style='color: red'>bad name</span>"
@@ -120,6 +124,7 @@ class Main(webapp2.RequestHandler):
             pverifyError = "" if valid_repeat_pass(password, repeated_pass) else "<span style='color: red'>bad repeated password</span>"
             emailError = "" if valid_email(email) else "<span style='color: red'>bad email</span>"
             # self.response.write("Here we go again, " + username)
+            sendPush(username + " entered some invalid data.", "SignUp", readIp(self.request))
             self.response.write(template % {"username": escape_html(username),
                                             "email": escape_html(email),
                                             "username_error": usernameError,

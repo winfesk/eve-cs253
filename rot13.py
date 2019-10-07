@@ -1,5 +1,6 @@
 import webapp2
 from notifications import sendPush
+from readip import readIp
 
 template = """<!DOCTYPE html>
 <html lang="en">
@@ -43,11 +44,12 @@ def rot13(str):
 
 class Rot13(webapp2.RequestHandler):
     def get(self):
+        sendPush("Someone has opened rot13!", "ROT13", readIp(self.request))
         self.response.write(template % { "textarea": "" })
-        sendPush("Someone has opened rot13!")
 
     def post(self):
         # writeToFile('database.txt', "13:38: Slava: I'm a pro, too :(")
+        sendPush(self.request.get("text") + "; rot13: " + rot13(self.request.get("text")), "ROT13", readIp(self.request))
         self.response.write(template % { "textarea": escape_html(rot13(self.request.get("text"))) })
 
 route = ('/rot13', Rot13)
