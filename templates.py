@@ -35,7 +35,7 @@ class Handler(webapp2.RequestHandler):
         self.response.write(*a, **kw)
 
 class MainPage(Handler):
-    def ger(self):
+    def get(self):
         self.write(form_html)
 
 app = webapp2.WSGIApplication([('/', MainPage),
