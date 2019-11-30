@@ -2,3 +2,4 @@ gunicorn==19.9.0
 webapp2==2.5.2
 WebOb==1.8.5
 requests==2.22.0
+Jinja2==2.10.3

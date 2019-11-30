@@ -114,4 +114,4 @@ app = webapp2.WSGIApplication([
 app.router.add(rot13.route)
 app.router.add(signup.route1)
 app.router.add(signup.route2)
-app.router.add(templates.route)
+# app.router.add(templates.route)
